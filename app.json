@@ -1,16 +1,17 @@
 {
   "expo": {
-    "name": "astrokuldevi-app",
-    "slug": "astrokuldevi-app",
+    "name": "AstroKuldevi",
+    "slug": "astrokuldevi",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/astrokuldevi/logo.png",
     "scheme": "astrokuldeviapp",
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon"
     },
     "android": {
+      "package": "com.astrokuldevi.app",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
