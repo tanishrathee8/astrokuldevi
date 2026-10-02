@@ -6,38 +6,43 @@
     "orientation": "portrait",
     "icon": "./assets/astrokuldevi/logo.png",
     "scheme": "astrokuldeviapp",
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "dark",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/astrokuldevi/logo.png"
     },
     "android": {
       "package": "com.astrokuldevi.app",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+        "backgroundColor": "#171126",
+        "foregroundImage": "./assets/astrokuldevi/logo.png"
       },
       "predictiveBackGestureEnabled": false
     },
     "web": {
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/astrokuldevi/logo.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#208AEF",
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 76
+          "backgroundColor": "#171126",
+          "image": "./assets/astrokuldevi/logo.png",
+          "imageWidth": 180
         }
-      ]
+      ],
+      "@react-native-community/datetimepicker"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "964e32b9-eb99-474d-a1aa-9a46b4a597dc"
+      }
     }
   }
 }
