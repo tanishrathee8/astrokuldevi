@@ -1307,7 +1307,7 @@ const styles = StyleSheet.create({
 
   heroTitle: {
     color: "#F4E8C4",
-    fontSize: 43,
+    fontSize: 44,
     lineHeight: 51,
     fontWeight: "400",
     fontFamily: "serif",
