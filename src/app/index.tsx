@@ -1974,7 +1974,7 @@ const styles = StyleSheet.create({
 
   menuOverlay: {
     flex: 1,
-    backgroundColor: "rgba(8, 5, 15, 0.72)",
+    backgroundColor: "rgba(18, 13, 31, 0.98)",
     alignItems: "flex-end",
   },
 
