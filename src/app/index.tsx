@@ -1294,8 +1294,8 @@ const styles = StyleSheet.create({
   /* HERO */
 
   hero: {
-    paddingTop: 10,
-    paddingBottom: 52,
+    paddingTop: 18,
+    paddingBottom: 58,
   },
 
   eyebrow: {
