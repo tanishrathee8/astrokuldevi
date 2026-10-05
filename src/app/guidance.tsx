@@ -892,7 +892,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#342A45",
     borderRadius: 15,
-    padding: 22,
+    padding: 26,
     marginTop: 8,
   },
 
