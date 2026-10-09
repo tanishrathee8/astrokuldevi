@@ -1294,8 +1294,8 @@ const styles = StyleSheet.create({
   /* HERO */
 
   hero: {
-    paddingTop: 18,
-    paddingBottom: 58,
+    paddingTop: 24,
+    paddingBottom: 64,
   },
 
   eyebrow: {
@@ -1307,10 +1307,11 @@ const styles = StyleSheet.create({
 
   heroTitle: {
     color: "#F4E8C4",
-    fontSize: 44,
-    lineHeight: 51,
+    fontSize: 43,
+    lineHeight: 55,
     fontWeight: "400",
     fontFamily: "serif",
+    letterSpacing: -0.6,
   },
 
   heroAccent: {
@@ -1341,12 +1342,12 @@ const styles = StyleSheet.create({
 
   profileImageFrame: {
     width: "100%",
-    height: 330,
-    borderRadius: 18,
+    height: 350,
+    borderRadius: 20,
     overflow: "hidden",
     backgroundColor: "#1D162B",
     borderWidth: 1,
-    borderColor: "#342A45",
+    borderColor: "#665738",
   },
 
   profileImage: {
@@ -1355,7 +1356,7 @@ const styles = StyleSheet.create({
   },
 
   profileTextBlock: {
-    paddingTop: 24,
+    paddingTop: 28,
   },
 
   profileEyebrow: {
