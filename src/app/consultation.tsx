@@ -31,6 +31,18 @@ export default function ConsultationScreen() {
   const [contactTime, setContactTime] = useState("");
   const [consent, setConsent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<
+    Record<string, string>
+  >({});
+  const clearValidationError = (field: string) => {
+    setValidationErrors((current) => {
+      if (!current[field]) return current;
+
+      const updated = { ...current };
+      delete updated[field];
+      return updated;
+    });
+  };
   const handleDateChange = (_event: unknown, date: Date) => {
     setShowDatePicker(false);
 
@@ -41,6 +53,7 @@ export default function ConsultationScreen() {
     ).padStart(2, "0")}/${date.getFullYear()}`;
 
     setDateOfBirth(formattedDate);
+    clearValidationError("dateOfBirth");
   };
 
   const handleTimeChange = (_event: unknown, time: Date) => {
@@ -55,6 +68,7 @@ export default function ConsultationScreen() {
         hour12: true,
       }),
     );
+    clearValidationError("timeOfBirth");
   };
   const handleConsultationSubmit = async () => {
     const trimmedName = name.trim();
@@ -64,74 +78,52 @@ export default function ConsultationScreen() {
     const trimmedQuestion = question.trim();
 
     if (!trimmedName) {
-      Alert.alert("Name Required", "Please enter your full name.");
-      return;
-    }
+      const errors: Record<string, string> = {};
 
-    if (trimmedName.length < 2) {
-      Alert.alert("Invalid Name", "Please enter a valid name.");
-      return;
-    }
+      if (!trimmedName) {
+        errors.name = "Please enter your full name.";
+      } else if (trimmedName.length < 2) {
+        errors.name = "Name must contain at least 2 characters.";
+      }
 
-    if (!/^[6-9]\d{9}$/.test(trimmedPhone)) {
-      Alert.alert(
-        "Invalid Phone Number",
-        "Please enter a valid 10-digit Indian mobile number.",
-      );
-      return;
-    }
+      if (!/^[6-9]\d{9}$/.test(trimmedPhone)) {
+        errors.phone = "Enter a valid 10-digit Indian mobile number.";
+      }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
-      Alert.alert("Invalid Email", "Please enter a valid email address.");
-      return;
-    }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+        errors.email = "Enter a valid email address.";
+      }
 
-    if (!dateOfBirth) {
-      Alert.alert(
-        "Date of Birth Required",
-        "Please select your date of birth.",
-      );
-      return;
-    }
+      if (!dateOfBirth) {
+        errors.dateOfBirth = "Please select your date of birth.";
+      }
 
-    if (!timeOfBirth) {
-      Alert.alert(
-        "Time of Birth Required",
-        "Please select your time of birth.",
-      );
-      return;
-    }
+      if (!timeOfBirth) {
+        errors.timeOfBirth = "Please select your time of birth.";
+      }
 
-    if (!trimmedPlaceOfBirth) {
-      Alert.alert(
-        "Place of Birth Required",
-        "Please enter your place of birth.",
-      );
-      return;
-    }
+      if (!trimmedPlaceOfBirth) {
+        errors.placeOfBirth = "Please enter your place of birth.";
+      }
 
-    if (trimmedQuestion.length < 10) {
-      Alert.alert(
-        "Question Too Short",
-        "Please enter at least 10 characters for your question.",
-      );
-      return;
-    }
+      if (trimmedQuestion.length < 10) {
+        errors.question = "Please enter at least 10 characters.";
+      }
 
-    if (!contactTime) {
-      Alert.alert(
-        "Preferred Time Required",
-        "Please select your preferred contact time.",
-      );
-      return;
-    }
+      if (!contactTime.trim()) {
+        errors.contactTime = "Please specify your preferred contact time.";
+      }
 
-    if (!consent) {
-      Alert.alert(
-        "Consent Required",
-        "Please confirm that you agree to be contacted regarding your consultation.",
-      );
-      return;
+      if (!consent) {
+        errors.consent =
+          "Please agree to be contacted about your consultation.";
+      }
+
+      setValidationErrors(errors);
+
+      if (Object.keys(errors).length > 0) {
+        return;
+      }
     }
     try {
       setSubmitting(true);
@@ -270,9 +262,17 @@ export default function ConsultationScreen() {
               placeholder="Enter your full name"
               placeholderTextColor="#746A80"
               value={name}
-              onChangeText={setName}
+              onChangeText={(value) => {
+                setName(value);
+                clearValidationError("name");
+              }}
               selectionColor="#D8B75C"
             />
+            {validationErrors.name && (
+              <Text style={styles.validationError}>
+                {validationErrors.name}
+              </Text>
+            )}
           </View>
 
           <Text style={styles.consultationLabel}>PHONE NUMBER</Text>
@@ -289,9 +289,17 @@ export default function ConsultationScreen() {
               placeholderTextColor="#746A80"
               keyboardType="phone-pad"
               value={phone}
-              onChangeText={setPhone}
+              onChangeText={(value) => {
+                setPhone(value);
+                clearValidationError("phone");
+              }}
               selectionColor="#D8B75C"
             />
+            {validationErrors.phone && (
+              <Text style={styles.validationError}>
+                {validationErrors.phone}
+              </Text>
+            )}
           </View>
 
           <Text style={styles.consultationLabel}>EMAIL ADDRESS</Text>
@@ -310,9 +318,17 @@ export default function ConsultationScreen() {
               autoCapitalize="none"
               autoCorrect={false}
               value={email}
-              onChangeText={setEmail}
+              onChangeText={(value) => {
+                setEmail(value);
+                clearValidationError("email");
+              }}
               selectionColor="#D8B75C"
             />
+            {validationErrors.email && (
+              <Text style={styles.validationError}>
+                {validationErrors.email}
+              </Text>
+            )}
           </View>
           <Text style={styles.consultationLabel}>DATE OF BIRTH</Text>
           <Pressable
@@ -334,7 +350,11 @@ export default function ConsultationScreen() {
               {dateOfBirth || "DD / MM / YYYY"}
             </Text>
           </Pressable>
-
+          {validationErrors.dateOfBirth && (
+            <Text style={styles.validationError}>
+              {validationErrors.dateOfBirth}
+            </Text>
+          )}
           {showDatePicker && (
             <DateTimePicker
               value={selectedDate}
@@ -365,7 +385,11 @@ export default function ConsultationScreen() {
               {timeOfBirth || "e.g. 10:30 AM"}
             </Text>
           </Pressable>
-
+          {validationErrors.timeOfBirth && (
+            <Text style={styles.validationError}>
+              {validationErrors.timeOfBirth}
+            </Text>
+          )}
           {showTimePicker && (
             <DateTimePicker
               value={selectedTime}
@@ -389,11 +413,18 @@ export default function ConsultationScreen() {
               placeholder="City, State, Country"
               placeholderTextColor="#746A80"
               value={placeOfBirth}
-              onChangeText={setPlaceOfBirth}
+              onChangeText={(value) => {
+                setPlaceOfBirth(value);
+                clearValidationError("placeOfBirth");
+              }}
               selectionColor="#D8B75C"
             />
           </View>
-
+          {validationErrors.placeOfBirth && (
+            <Text style={styles.validationError}>
+              {validationErrors.placeOfBirth}
+            </Text>
+          )}
           <View style={styles.consultationSubsection}>
             <Text style={styles.consultationSubEyebrow}>
               THE REASON YOU'RE HERE
@@ -427,11 +458,18 @@ export default function ConsultationScreen() {
               multiline
               textAlignVertical="top"
               value={question}
-              onChangeText={setQuestion}
+              onChangeText={(value) => {
+                setQuestion(value);
+                clearValidationError("question");
+              }}
               selectionColor="#D8B75C"
             />
           </View>
-
+          {validationErrors.question && (
+            <Text style={styles.validationError}>
+              {validationErrors.question}
+            </Text>
+          )}
           <Text style={styles.consultationLabel}>PREFERRED CONTACT TIME</Text>
           <View style={styles.inputShell}>
             <Ionicons
@@ -445,17 +483,28 @@ export default function ConsultationScreen() {
               placeholder="e.g. 6 PM – 8 PM"
               placeholderTextColor="#746A80"
               value={contactTime}
-              onChangeText={setContactTime}
+              onChangeText={(value) => {
+                setContactTime(value);
+                clearValidationError("contactTime");
+              }}
               selectionColor="#D8B75C"
             />
           </View>
+          {validationErrors.contactTime && (
+            <Text style={styles.validationError}>
+              {validationErrors.contactTime}
+            </Text>
+          )}
           <Text style={styles.consultationHint}>
             We'll do our best to reach you within your preferred window.
           </Text>
 
           <Pressable
             style={styles.consentRow}
-            onPress={() => setConsent((current) => !current)}
+            onPress={() => {
+              setConsent((current) => !current);
+              clearValidationError("consent");
+            }}
           >
             <View
               style={[
@@ -472,7 +521,11 @@ export default function ConsultationScreen() {
               I consent to being contacted regarding my consultation request.
             </Text>
           </Pressable>
-
+          {validationErrors.consent && (
+            <Text style={styles.validationError}>
+              {validationErrors.consent}
+            </Text>
+          )}
           <Text style={styles.consultationSubmitEyebrow}>
             WHEN YOU'RE READY
           </Text>
@@ -741,6 +794,14 @@ const styles = StyleSheet.create({
   },
   placeholderText: {
     color: "#746A80",
+  },
+  validationError: {
+    color: "#FF8585",
+    fontSize: 11,
+    lineHeight: 16,
+    marginTop: 5,
+    marginBottom: 8,
+    marginLeft: 4,
   },
   consultationSubsection: {
     borderTopWidth: 1,
