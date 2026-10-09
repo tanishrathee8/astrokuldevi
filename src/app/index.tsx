@@ -2013,17 +2013,15 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
     marginTop: 5,
   },
-
   closeButton: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
-    borderWidth: 1,
-    borderColor: "#4A3C55",
+    width: 44,
+    height: 44,
     alignItems: "center",
     justifyContent: "center",
+    borderRadius: 22,
+    borderWidth: 1,
+    borderColor: "#3A304D",
   },
-
   closeText: {
     color: "#D8B75C",
     fontSize: 23,
