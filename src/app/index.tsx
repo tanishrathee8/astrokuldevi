@@ -1294,15 +1294,15 @@ const styles = StyleSheet.create({
   /* HERO */
 
   hero: {
-    paddingTop: 24,
-    paddingBottom: 64,
+    paddingTop: 20,
+    paddingBottom: 48,
   },
 
   eyebrow: {
     color: "#D8B75C",
     fontSize: 10,
     letterSpacing: 3,
-    marginBottom: 18,
+    marginBottom: 14,
   },
 
   heroTitle: {
@@ -1329,8 +1329,8 @@ const styles = StyleSheet.create({
   heroText: {
     color: "#AAA0B7",
     fontSize: 15,
-    lineHeight: 24,
-    marginTop: 20,
+    lineHeight: 25,
+    marginTop: 18,
     maxWidth: 335,
   },
   /* M.K. SHARMA PROFILE */
