@@ -1342,7 +1342,7 @@ const styles = StyleSheet.create({
 
   profileImageFrame: {
     width: "100%",
-    height: 350,
+    height: 410,
     borderRadius: 20,
     overflow: "hidden",
     backgroundColor: "#1D162B",
